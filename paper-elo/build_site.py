@@ -54,6 +54,13 @@ def method_name(label: str) -> str:
     return f"{category(label).split(' · ')[0]} · {plot.method_name(label)}"
 
 
+CAT_CLASS = {"NeuriCo · Claude": "nc", "NeuriCo · GPT": "ng", "Claude Code": "cc", "Codex": "cx"}
+
+
+def dot(cat: str) -> str:
+    return f'<span class="dot {CAT_CLASS[cat]}"></span>'
+
+
 def excluded(label: str) -> bool:
     return any(s in label for s in EXCLUDE)
 
@@ -143,7 +150,7 @@ def leaderboard_table(rows: list[dict]) -> str:
         name = method_name(r["name"]) if "category" in r else r["name"]
         cat = r.get("category", r["name"])
         out.append(f'<tr><td class="rank">{i}<span class="spread">{spread if spread != str(i) else ""}</span></td>'
-                   f'<td><span class="dot" style="background:{plot.COLOR[cat]}"></span>{esc(name)}</td>'
+                   f'<td>{dot(cat)}{esc(name)}</td>'
                    f'<td class="num strong">{r["elo"]}</td><td class="num muted">{str(r["lo"]).replace("-", "−")} to {r["hi"]}</td>'
                    f'<td class="num">{r["win_rate"]:.0%}</td><td class="num muted">{r["games"]}</td></tr>')
     out.append("</tbody></table>")
@@ -170,11 +177,8 @@ def matrix(data: dict, order: list[str]) -> str:
             if p is None:
                 out.append('<td class="na">–</td>')
             else:
-                # teal above 50%, grey below; opacity grows with distance from 50%
-                col = "0,95,90" if p >= 0.5 else "117,117,117"
-                alpha = 0.08 + 0.75 * abs(p - 0.5) * 2
-                fg = "#fff" if alpha > 0.5 else "var(--ink)"
-                out.append(f'<td style="background:rgba({col},{alpha:.2f});color:{fg}" title="{w:g} of {n}">{p:.0%}</td>')
+                # colour bucket in the stylesheet: w0..w10 = 0%..100% in steps of 10
+                out.append(f'<td class="w{round(p * 10)}" title="{w:g} of {n}">{p:.0%}</td>')
         out.append("</tr>")
     out.append("</tbody></table></div>")
     return "".join(out)
@@ -257,7 +261,7 @@ def build_idea(data: dict, slug: str, n: int) -> str:
     rows = []
     for p in papers:
         w, g = wr[p["label"]]
-        rows.append(f'<tr><td><span class="dot" style="background:{plot.COLOR[p["category"]]}"></span>{esc(p["name"])}</td>'
+        rows.append(f'<tr><td>{dot(p["category"])}{esc(p["name"])}</td>'
                     f'<td class="title">{esc(p["title"])}</td><td class="num">{p["pages"]}</td>'
                     f'<td class="num">{p["words"]:,}</td><td class="num strong">{(w / g if g else 0):.0%}</td>'
                     f'<td><a href="../{p["pdf"]}" download>PDF</a></td></tr>')
@@ -268,7 +272,7 @@ def build_idea(data: dict, slug: str, n: int) -> str:
                        "winner": j["winner"], "analysis": j["verdict"].get("analysis", ""),
                        "scores": j["verdict"].get("scores", {})} for j in js],
         "criteria": CRITERIA,
-        "colors": plot.COLOR,
+        "classes": CAT_CLASS,
     }
     bg = idea["background"]
     body = f"""
@@ -359,9 +363,9 @@ function render() {
   let wa = 0, wb = 0, t = 0;
   js.forEach(j => { if (j.winner === a) wa++; else if (j.winner === b) wb++; else t++; });
   const pa = byLabel[a], pb = byLabel[b];
-  tally.innerHTML = `<div class="t"><span class="dot" style="background:${D.colors[pa.category]}"></span><b>${esc(pa.name)}</b> ${wa}</div>` +
+  tally.innerHTML = `<div class="t"><span class="dot ${D.classes[pa.category]}"></span><b>${esc(pa.name)}</b> ${wa}</div>` +
     (t ? `<div class="t muted">tie ${t}</div>` : '') +
-    `<div class="t"><span class="dot" style="background:${D.colors[pb.category]}"></span><b>${esc(pb.name)}</b> ${wb}</div>` +
+    `<div class="t"><span class="dot ${D.classes[pb.category]}"></span><b>${esc(pb.name)}</b> ${wb}</div>` +
     `<div class="t muted">of ${js.length} comparisons</div>`;
   const order = ['Gemini 3.1 Pro', 'Grok 4.7', 'DeepSeek V4 Pro'];
   js.sort((x, y) => order.indexOf(x.judge) - order.indexOf(y.judge) || (x.first === a ? -1 : 1));
@@ -461,6 +465,7 @@ svg text{font-family:var(--font)}
 .sub{fill:var(--muted)}
 .sec{fill:var(--ink);font-size:17px;font-weight:600}
 .dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:9px;vertical-align:-1px}
+.dot.nc{background:#005f5a}.dot.ng{background:#78c4af}.dot.cc{background:#4b47b5}.dot.cx{background:#9a9a9a}
 table.board{width:100%;border-collapse:collapse;font-size:16px;font-variant-numeric:tabular-nums}
 table.board th{text-align:left;font-weight:600;color:var(--muted);font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:0 10px 10px 0;border-bottom:1px solid var(--line)}
 table.board td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}
@@ -480,6 +485,17 @@ table.matrix thead th small{color:var(--muted);font-weight:400}
 table.matrix td{width:78px;height:40px;text-align:center;border-radius:6px}
 table.matrix td.self{background:transparent}
 table.matrix td.na{color:var(--muted)}
+table.matrix td.w0{background:rgba(117,117,117,.83);color:#fff}
+table.matrix td.w1{background:rgba(117,117,117,.68);color:#fff}
+table.matrix td.w2{background:rgba(117,117,117,.53);color:#fff}
+table.matrix td.w3{background:rgba(117,117,117,.38);color:var(--ink)}
+table.matrix td.w4{background:rgba(117,117,117,.23);color:var(--ink)}
+table.matrix td.w5{background:rgba(0,95,90,.08);color:var(--ink)}
+table.matrix td.w6{background:rgba(0,95,90,.23);color:var(--ink)}
+table.matrix td.w7{background:rgba(0,95,90,.38);color:var(--ink)}
+table.matrix td.w8{background:rgba(0,95,90,.53);color:#fff}
+table.matrix td.w9{background:rgba(0,95,90,.68);color:#fff}
+table.matrix td.w10{background:rgba(0,95,90,.83);color:#fff}
 .ideas{display:grid;gap:12px}
 .idea{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:16px 18px;background:#fff;border:1px solid var(--line-soft);border-radius:12px;text-decoration:none;color:inherit;transition:border-color .15s}
 .idea:hover{border-color:var(--green)}

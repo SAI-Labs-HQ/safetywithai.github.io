@@ -37,6 +37,7 @@ svg text{font-family:var(--font)}
 .sub{fill:var(--muted)}
 .sec{fill:var(--ink);font-size:17px;font-weight:600}
 .dot{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:9px;vertical-align:-1px}
+.dot.nc{background:#005f5a}.dot.ng{background:#78c4af}.dot.cc{background:#4b47b5}.dot.cx{background:#9a9a9a}
 table.board{width:100%;border-collapse:collapse;font-size:16px;font-variant-numeric:tabular-nums}
 table.board th{text-align:left;font-weight:600;color:var(--muted);font-size:13px;letter-spacing:.04em;text-transform:uppercase;padding:0 10px 10px 0;border-bottom:1px solid var(--line)}
 table.board td{padding:12px 10px 12px 0;border-bottom:1px solid var(--line-soft);vertical-align:middle}
@@ -56,6 +57,17 @@ table.matrix thead th small{color:var(--muted);font-weight:400}
 table.matrix td{width:78px;height:40px;text-align:center;border-radius:6px}
 table.matrix td.self{background:transparent}
 table.matrix td.na{color:var(--muted)}
+table.matrix td.w0{background:rgba(117,117,117,.83);color:#fff}
+table.matrix td.w1{background:rgba(117,117,117,.68);color:#fff}
+table.matrix td.w2{background:rgba(117,117,117,.53);color:#fff}
+table.matrix td.w3{background:rgba(117,117,117,.38);color:var(--ink)}
+table.matrix td.w4{background:rgba(117,117,117,.23);color:var(--ink)}
+table.matrix td.w5{background:rgba(0,95,90,.08);color:var(--ink)}
+table.matrix td.w6{background:rgba(0,95,90,.23);color:var(--ink)}
+table.matrix td.w7{background:rgba(0,95,90,.38);color:var(--ink)}
+table.matrix td.w8{background:rgba(0,95,90,.53);color:#fff}
+table.matrix td.w9{background:rgba(0,95,90,.68);color:#fff}
+table.matrix td.w10{background:rgba(0,95,90,.83);color:#fff}
 .ideas{display:grid;gap:12px}
 .idea{display:grid;grid-template-columns:40px 1fr;gap:14px;padding:16px 18px;background:#fff;border:1px solid var(--line-soft);border-radius:12px;text-decoration:none;color:inherit;transition:border-color .15s}
 .idea:hover{border-color:var(--green)}

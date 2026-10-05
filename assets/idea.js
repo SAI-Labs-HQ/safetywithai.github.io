@@ -50,9 +50,9 @@ function render() {
   let wa = 0, wb = 0, t = 0;
   js.forEach(j => { if (j.winner === a) wa++; else if (j.winner === b) wb++; else t++; });
   const pa = byLabel[a], pb = byLabel[b];
-  tally.innerHTML = `<div class="t"><span class="dot" style="background:${D.colors[pa.category]}"></span><b>${esc(pa.name)}</b> ${wa}</div>` +
+  tally.innerHTML = `<div class="t"><span class="dot ${D.classes[pa.category]}"></span><b>${esc(pa.name)}</b> ${wa}</div>` +
     (t ? `<div class="t muted">tie ${t}</div>` : '') +
-    `<div class="t"><span class="dot" style="background:${D.colors[pb.category]}"></span><b>${esc(pb.name)}</b> ${wb}</div>` +
+    `<div class="t"><span class="dot ${D.classes[pb.category]}"></span><b>${esc(pb.name)}</b> ${wb}</div>` +
     `<div class="t muted">of ${js.length} comparisons</div>`;
   const order = ['Gemini 3.1 Pro', 'Grok 4.7', 'DeepSeek V4 Pro'];
   js.sort((x, y) => order.indexOf(x.judge) - order.indexOf(y.judge) || (x.first === a ? -1 : 1));
