@@ -1,0 +1,392 @@
+[
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "neurico-claude-claude-fable-5-1",
+  "pages": 16,
+  "main": 6903,
+  "after": 1863,
+  "backpages": 4,
+  "tables": 9,
+  "figs": 8
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "neurico-claude-claude-opus-5-5",
+  "pages": 13,
+  "main": 6525,
+  "after": 828,
+  "backpages": 1,
+  "tables": 7,
+  "figs": 4
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "neurico-codex-gpt-5-6-sol",
+  "pages": 11,
+  "main": 3898,
+  "after": 827,
+  "backpages": 2,
+  "tables": 5,
+  "figs": 4
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "neurico-codex-gpt-6-astra",
+  "pages": 14,
+  "main": 4436,
+  "after": 2228,
+  "backpages": 4,
+  "tables": 7,
+  "figs": 2
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "zero-shot-claude-claude-fable-5-1",
+  "pages": 21,
+  "main": 7127,
+  "after": 3798,
+  "backpages": 8,
+  "tables": 14,
+  "figs": 5
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "zero-shot-claude-claude-opus-5-5",
+  "pages": 13,
+  "main": 5069,
+  "after": 1785,
+  "backpages": 3,
+  "tables": 5,
+  "figs": 4
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "zero-shot-codex-gpt-5-6-sol",
+  "pages": 5,
+  "main": 2539,
+  "after": 466,
+  "backpages": 1,
+  "tables": 1,
+  "figs": 3
+ },
+ {
+  "idea": "human_vs_llm_prompter",
+  "label": "zero-shot-codex-gpt-6-astra",
+  "pages": 9,
+  "main": 4151,
+  "after": 1242,
+  "backpages": 2,
+  "tables": 6,
+  "figs": 3
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "neurico-claude-claude-fable-5-1",
+  "pages": 15,
+  "main": 6298,
+  "after": 1605,
+  "backpages": 4,
+  "tables": 10,
+  "figs": 6
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "neurico-claude-claude-opus-5-5",
+  "pages": 14,
+  "main": 5830,
+  "after": 1727,
+  "backpages": 4,
+  "tables": 5,
+  "figs": 4
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "neurico-codex-gpt-5-6-sol",
+  "pages": 10,
+  "main": 4066,
+  "after": 658,
+  "backpages": 1,
+  "tables": 3,
+  "figs": 4
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "neurico-codex-gpt-6-astra",
+  "pages": 11,
+  "main": 3789,
+  "after": 1294,
+  "backpages": 3,
+  "tables": 6,
+  "figs": 3
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "zero-shot-claude-claude-fable-5-1",
+  "pages": 18,
+  "main": 7623,
+  "after": 3136,
+  "backpages": 6,
+  "tables": 13,
+  "figs": 4
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "zero-shot-claude-claude-opus-5-5",
+  "pages": 16,
+  "main": 7611,
+  "after": 2250,
+  "backpages": 4,
+  "tables": 13,
+  "figs": 6
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "zero-shot-codex-gpt-5-6-sol",
+  "pages": 5,
+  "main": 2664,
+  "after": 423,
+  "backpages": 1,
+  "tables": 1,
+  "figs": 3
+ },
+ {
+  "idea": "isolating_knowledge_updates",
+  "label": "zero-shot-codex-gpt-6-astra",
+  "pages": 8,
+  "main": 3701,
+  "after": 1125,
+  "backpages": 2,
+  "tables": 3,
+  "figs": 3
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "neurico-claude-claude-fable-5-1",
+  "pages": 13,
+  "main": 5988,
+  "after": 1091,
+  "backpages": 3,
+  "tables": 8,
+  "figs": 5
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "neurico-claude-claude-opus-5-5",
+  "pages": 17,
+  "main": 5837,
+  "after": 2506,
+  "backpages": 7,
+  "tables": 9,
+  "figs": 8
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "neurico-codex-gpt-5-6-sol",
+  "pages": 9,
+  "main": 3822,
+  "after": 545,
+  "backpages": 1,
+  "tables": 2,
+  "figs": 2
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "neurico-codex-gpt-6-astra",
+  "pages": 15,
+  "main": 4182,
+  "after": 2617,
+  "backpages": 6,
+  "tables": 8,
+  "figs": 3
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "zero-shot-claude-claude-fable-5-1",
+  "pages": 14,
+  "main": 6886,
+  "after": 1021,
+  "backpages": 2,
+  "tables": 8,
+  "figs": 4
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "zero-shot-claude-claude-opus-5-5",
+  "pages": 12,
+  "main": 6124,
+  "after": 1058,
+  "backpages": 2,
+  "tables": 4,
+  "figs": 6
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "zero-shot-codex-gpt-5-6-sol",
+  "pages": 4,
+  "main": 2301,
+  "after": 416,
+  "backpages": 0,
+  "tables": 1,
+  "figs": 3
+ },
+ {
+  "idea": "keeping_secrets",
+  "label": "zero-shot-codex-gpt-6-astra",
+  "pages": 9,
+  "main": 4347,
+  "after": 1275,
+  "backpages": 2,
+  "tables": 7,
+  "figs": 3
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "neurico-claude-claude-fable-5-1",
+  "pages": 13,
+  "main": 5869,
+  "after": 918,
+  "backpages": 2,
+  "tables": 6,
+  "figs": 5
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "neurico-claude-claude-opus-5-5",
+  "pages": 15,
+  "main": 6103,
+  "after": 1491,
+  "backpages": 4,
+  "tables": 9,
+  "figs": 5
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "neurico-codex-gpt-5-6-sol",
+  "pages": 12,
+  "main": 5439,
+  "after": 452,
+  "backpages": 1,
+  "tables": 4,
+  "figs": 3
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "neurico-codex-gpt-6-astra",
+  "pages": 16,
+  "main": 4711,
+  "after": 2704,
+  "backpages": 6,
+  "tables": 9,
+  "figs": 4
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "zero-shot-claude-claude-fable-5-1",
+  "pages": 21,
+  "main": 7946,
+  "after": 4201,
+  "backpages": 7,
+  "tables": 17,
+  "figs": 5
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "zero-shot-claude-claude-opus-5-5",
+  "pages": 15,
+  "main": 5967,
+  "after": 1443,
+  "backpages": 4,
+  "tables": 7,
+  "figs": 6
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "zero-shot-codex-gpt-5-6-sol",
+  "pages": 4,
+  "main": 1947,
+  "after": 463,
+  "backpages": 1,
+  "tables": 2,
+  "figs": 2
+ },
+ {
+  "idea": "lies_vs_hallucinations",
+  "label": "zero-shot-codex-gpt-6-astra",
+  "pages": 9,
+  "main": 4350,
+  "after": 1047,
+  "backpages": 2,
+  "tables": 9,
+  "figs": 2
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "neurico-claude-claude-fable-5-1",
+  "pages": 14,
+  "main": 6588,
+  "after": 914,
+  "backpages": 2,
+  "tables": 9,
+  "figs": 5
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "neurico-claude-claude-opus-5-5",
+  "pages": 14,
+  "main": 6552,
+  "after": 1000,
+  "backpages": 2,
+  "tables": 6,
+  "figs": 4
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "neurico-codex-gpt-5-6-sol",
+  "pages": 10,
+  "main": 3639,
+  "after": 919,
+  "backpages": 2,
+  "tables": 6,
+  "figs": 3
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "neurico-codex-gpt-6-astra",
+  "pages": 13,
+  "main": 3834,
+  "after": 2034,
+  "backpages": 5,
+  "tables": 5,
+  "figs": 4
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "zero-shot-claude-claude-opus-5-5",
+  "pages": 17,
+  "main": 6300,
+  "after": 3232,
+  "backpages": 6,
+  "tables": 10,
+  "figs": 6
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "zero-shot-codex-gpt-5-6-sol",
+  "pages": 3,
+  "main": 1366,
+  "after": 224,
+  "backpages": 0,
+  "tables": 2,
+  "figs": 1
+ },
+ {
+  "idea": "sounds_like_ai",
+  "label": "zero-shot-codex-gpt-6-astra",
+  "pages": 12,
+  "main": 4747,
+  "after": 2247,
+  "backpages": 4,
+  "tables": 10,
+  "figs": 5
+ }
+]

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works · Paper Arena</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='4' fill='%23005f5a'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head><body>
+<header class="top"><div class="inner">
+<a class="brand" href="index.html">SAI Labs <span>· Paper Arena</span></a>
+<nav><a href="index.html">Leaderboard</a><a href="index.html#ideas">Ideas</a><a href="method.html">How it works</a></nav>
+</div></header>
+<main class="wrap">
+
+<p class="eyebrow">How it works</p>
+<h1>Judging and ratings</h1>
+<p class="lead">The arena rates methods, not papers. Every paper is compared only with papers on the same idea, and the ratings summarise who tends to win those comparisons.</p>
+
+<h2>The comparison</h2>
+<ul>
+<li><b>Blind.</b> The judge sees the idea and the text extracted from the two PDFs, under neutral labels. The author line is removed and the method name is redacted. Figures are not shown.</li>
+<li><b>Both orders.</b> Each pair is shown twice, with the papers swapped, so a preference for whichever paper comes first cancels out. The first-shown paper still wins 58% of decided comparisons, and judges pick the same winner in both orders 181/225 of the time.</li>
+<li><b>Three judges.</b> DeepSeek V4 Pro, Gemini 3.1 Pro, Grok 4.7. None of them belongs to the model families that wrote the papers, so no judge is grading its own writing.</li>
+<li><b>Six criteria.</b> Whether the paper answers the idea it was given, rigor of the experiments, whether conclusions follow from the results, insight, clarity, and whether the length fits the content. The judge writes a short comparison, scores each criterion and names a winner.</li>
+</ul>
+
+<h2>The rating</h2>
+<ul>
+<li><b>Each judge's verdict in each order is one game.</b> A tie counts half.</li>
+<li><b>Bradley-Terry, shown on the Elo scale.</b> This is the order-independent version of Elo used by LLM arenas. 1000 is the average method; 400 points is 10:1 odds of winning a comparison.</li>
+<li><b>Intervals</b> come from resampling paper pairs, so they reflect how much the result depends on which papers happened to be written.</li>
+<li><b>Categories</b> refit the same games with each method relabelled as its family; games within a family are dropped.</li>
+</ul>
+
+<h2>What this does not measure</h2>
+<ul>
+<li>Papers are judged as written. No one checked the reported numbers against the code and logs, which are in each run's repository.</li>
+<li>There is no human calibration yet. The judges reward breadth of evidence, such as more models, conditions and samples, above tighter statistics; a human panel might weigh these differently.</li>
+<li>Longer papers tend to win. In the judges' reasoning this is because longer papers contain more experiments, and removing appendices changed few verdicts, but length and substance are hard to separate with this many papers.</li>
+</ul>
+
+</main>
+<footer class="foot"><div class="inner">SAI Labs · Paper Arena · ratings update as more papers finish.</div></footer>
+</body></html>

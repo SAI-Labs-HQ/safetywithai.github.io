@@ -1,0 +1,132 @@
+{
+ "methods": [
+  {
+   "name": "zero-shot-claude-claude-fable-5-1",
+   "elo": 1450,
+   "lo": 1375,
+   "hi": 1573,
+   "games": 168,
+   "win_rate": 0.872,
+   "category": "Claude Code"
+  },
+  {
+   "name": "neurico-claude-claude-opus-5-5",
+   "elo": 1329,
+   "lo": 1253,
+   "hi": 1442,
+   "games": 204,
+   "win_rate": 0.787,
+   "category": "NeuriCo \u00b7 Claude"
+  },
+  {
+   "name": "zero-shot-claude-claude-opus-5-5",
+   "elo": 1289,
+   "lo": 1193,
+   "hi": 1392,
+   "games": 204,
+   "win_rate": 0.752,
+   "category": "Claude Code"
+  },
+  {
+   "name": "neurico-claude-claude-fable-5-1",
+   "elo": 1266,
+   "lo": 1185,
+   "hi": 1367,
+   "games": 204,
+   "win_rate": 0.733,
+   "category": "NeuriCo \u00b7 Claude"
+  },
+  {
+   "name": "zero-shot-codex-gpt-6-astra",
+   "elo": 754,
+   "lo": 643,
+   "hi": 826,
+   "games": 204,
+   "win_rate": 0.346,
+   "category": "Codex"
+  },
+  {
+   "name": "neurico-codex-gpt-5-6-sol",
+   "elo": 679,
+   "lo": 541,
+   "hi": 770,
+   "games": 204,
+   "win_rate": 0.287,
+   "category": "NeuriCo \u00b7 GPT"
+  },
+  {
+   "name": "neurico-codex-gpt-6-astra",
+   "elo": 619,
+   "lo": 474,
+   "hi": 708,
+   "games": 204,
+   "win_rate": 0.24,
+   "category": "NeuriCo \u00b7 GPT"
+  },
+  {
+   "name": "zero-shot-codex-gpt-5-6-sol",
+   "elo": 318,
+   "lo": 69,
+   "hi": 462,
+   "games": 204,
+   "win_rate": 0.049,
+   "category": "Codex"
+  }
+ ],
+ "categories": [
+  {
+   "name": "Claude Code",
+   "elo": 1327,
+   "lo": 1265,
+   "hi": 1409,
+   "games": 324,
+   "win_rate": 0.852
+  },
+  {
+   "name": "NeuriCo \u00b7 Claude",
+   "elo": 1268,
+   "lo": 1222,
+   "hi": 1327,
+   "games": 348,
+   "win_rate": 0.805
+  },
+  {
+   "name": "NeuriCo \u00b7 GPT",
+   "elo": 644,
+   "lo": 498,
+   "hi": 729,
+   "games": 348,
+   "win_rate": 0.223
+  },
+  {
+   "name": "Codex",
+   "elo": 570,
+   "lo": 408,
+   "hi": 669,
+   "games": 348,
+   "win_rate": 0.145
+  }
+ ],
+ "meta": {
+  "ideas": [
+   "human_vs_llm_prompter",
+   "isolating_knowledge_updates",
+   "keeping_secrets",
+   "lies_vs_hallucinations",
+   "sounds_like_ai"
+  ],
+  "papers": 39,
+  "judgments": 798,
+  "judges": [
+   "deepseek/deepseek-v4-pro",
+   "google/gemini-3.1-pro-preview",
+   "x-ai/grok-4.7"
+  ],
+  "paper_matchups": 133,
+  "forfeit_matchups": 0,
+  "no_paper_runs": [],
+  "order_consistent": "324/399",
+  "first_position_win_rate": 0.581,
+  "cost_usd": 38.97
+ }
+}
