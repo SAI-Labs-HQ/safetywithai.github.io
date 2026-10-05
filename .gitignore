@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Arena results (judgments, ratings, figures) stay local
+paper-elo/results/
