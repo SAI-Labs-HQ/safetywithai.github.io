@@ -26,8 +26,8 @@ RESULTS = HERE / "results"
 NEURICO = Path("/data/haokun_test/neurico")
 FONT_SRC = Path("/data/haokunliu/veritas-workspace/ICML2026-SAI-demo/blog/fonts/inter-400.woff2")
 
-EXCLUDE = ("fable",)
-RATINGS = "ratings_nofable.json"
+EXCLUDE = ("fable", "astra")
+RATINGS = "ratings_site.json"
 
 IDEAS = ["human_vs_llm_prompter", "keeping_secrets", "lies_vs_hallucinations",
          "isolating_knowledge_updates", "sounds_like_ai"]
@@ -144,7 +144,7 @@ def leaderboard_table(rows: list[dict]) -> str:
         cat = r.get("category", r["name"])
         out.append(f'<tr><td class="rank">{i}<span class="spread">{spread if spread != str(i) else ""}</span></td>'
                    f'<td><span class="dot" style="background:{plot.COLOR[cat]}"></span>{esc(name)}</td>'
-                   f'<td class="num strong">{r["elo"]}</td><td class="num muted">{r["lo"]}–{r["hi"]}</td>'
+                   f'<td class="num strong">{r["elo"]}</td><td class="num muted">{str(r["lo"]).replace("-", "−")} to {r["hi"]}</td>'
                    f'<td class="num">{r["win_rate"]:.0%}</td><td class="num muted">{r["games"]}</td></tr>')
     out.append("</tbody></table>")
     return "".join(out)
@@ -184,6 +184,10 @@ def build_index(data: dict) -> str:
     rt, meta = data["ratings"], data["ratings"]["meta"]
     n_papers = len(data["papers"])
     order = [m["name"] for m in rt["methods"]]
+    n_methods = {2: "two", 3: "three", 4: "four", 5: "five", 6: "six", 7: "seven", 8: "eight"}.get(len(order), str(len(order)))
+    claude_models = sorted({plot.method_name(l) for l in order if "claude" in l})
+    gpt_models = sorted({plot.method_name(l) for l in order if "codex" in l})
+    join = lambda xs: " and ".join(xs) if len(xs) <= 2 else ", ".join(xs[:-1]) + " and " + xs[-1]
     ideas_html = []
     per_idea = win_rates(data["judgments"], key=lambda j, lab: (j["idea"], lab))
     for n, slug in enumerate(IDEAS, 1):
@@ -198,7 +202,7 @@ def build_index(data: dict) -> str:
     body = f"""
 <p class="eyebrow">SAI Labs · research</p>
 <h1>Which AI research method writes the better paper?</h1>
-<p class="lead">We gave the same five research ideas to six automated research methods and let each one run until it produced a paper. Three independent LLM judges then compared every pair of papers on the same idea, blind, and we turned those comparisons into ratings.</p>
+<p class="lead">We gave the same five research ideas to {n_methods} automated research methods and let each one run until it produced a paper. Three independent LLM judges then compared every pair of papers on the same idea, blind, and we turned those comparisons into ratings.</p>
 
 <div class="stats">
 <div class="stat"><div class="n">{n_papers}</div><div class="l">papers</div></div>
@@ -231,9 +235,9 @@ def build_index(data: dict) -> str:
 </section>
 
 <section class="fig">
-<h2>The six methods</h2>
+<h2>The {n_methods} methods</h2>
 <ul class="methods">
-<li><b>NeuriCo</b> is our multi-stage research pipeline: literature review, planning, experiments and a separate paper-writing step. We ran it on Claude Code with Opus 5.5 and on Codex with GPT-5.6-sol and GPT-6-Astra.</li>
+<li><b>NeuriCo</b> is our multi-stage research pipeline: literature review, planning, experiments and a separate paper-writing step. We ran it on Claude Code with {join(claude_models)} and on Codex with {join(gpt_models)}.</li>
 <li><b>Claude Code</b> and <b>Codex</b> rows are a single agent session given the idea and told to research it and write the paper, with no time limit.</li>
 </ul>
 <p class="note">Every method received the same idea text. Papers were judged as written; nothing checked the reported numbers against the code. <a href="method.html">How the judging and ratings work →</a></p>

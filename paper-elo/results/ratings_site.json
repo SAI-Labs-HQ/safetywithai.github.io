@@ -1,0 +1,100 @@
+{
+ "methods": [
+  {
+   "name": "neurico-claude-claude-opus-5-5",
+   "elo": 1309,
+   "lo": 1207,
+   "hi": 1489,
+   "games": 90,
+   "win_rate": 0.833,
+   "category": "NeuriCo \u00b7 Claude"
+  },
+  {
+   "name": "zero-shot-claude-claude-opus-5-5",
+   "elo": 1268,
+   "lo": 1145,
+   "hi": 1462,
+   "games": 90,
+   "win_rate": 0.789,
+   "category": "Claude Code"
+  },
+  {
+   "name": "neurico-codex-gpt-5-6-sol",
+   "elo": 844,
+   "lo": 670,
+   "hi": 930,
+   "games": 90,
+   "win_rate": 0.356,
+   "category": "NeuriCo \u00b7 GPT"
+  },
+  {
+   "name": "zero-shot-codex-gpt-5-6-sol",
+   "elo": 396,
+   "lo": -74,
+   "hi": 654,
+   "games": 90,
+   "win_rate": 0.022,
+   "category": "Codex"
+  }
+ ],
+ "categories": [
+  {
+   "name": "NeuriCo \u00b7 Claude",
+   "elo": 1309,
+   "lo": 1210,
+   "hi": 1495,
+   "games": 90,
+   "win_rate": 0.833
+  },
+  {
+   "name": "Claude Code",
+   "elo": 1268,
+   "lo": 1140,
+   "hi": 1462,
+   "games": 90,
+   "win_rate": 0.789
+  },
+  {
+   "name": "NeuriCo \u00b7 GPT",
+   "elo": 844,
+   "lo": 669,
+   "hi": 931,
+   "games": 90,
+   "win_rate": 0.356
+  },
+  {
+   "name": "Codex",
+   "elo": 396,
+   "lo": -77,
+   "hi": 654,
+   "games": 90,
+   "win_rate": 0.022
+  }
+ ],
+ "meta": {
+  "ideas": [
+   "human_vs_llm_prompter",
+   "isolating_knowledge_updates",
+   "keeping_secrets",
+   "lies_vs_hallucinations",
+   "sounds_like_ai"
+  ],
+  "papers": 20,
+  "judgments": 180,
+  "judges": [
+   "deepseek/deepseek-v4-pro",
+   "google/gemini-3.1-pro-preview",
+   "x-ai/grok-4.7"
+  ],
+  "paper_matchups": 30,
+  "forfeit_matchups": 0,
+  "no_paper_runs": [],
+  "order_consistent": "79/90",
+  "first_position_win_rate": 0.55,
+  "cost_usd": 7.87,
+  "excluded": [
+   "fable",
+   "astra"
+  ]
+ }
+}
