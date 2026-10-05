@@ -154,7 +154,9 @@ def paper_text(run: dict, main_only: bool = False) -> dict:
         "text": f"Title: {title}\n\n{body}",
         "words": main_words,
         "pages": doc.page_count,
-        "sha": hashlib.sha256(pdf.read_bytes()).hexdigest()[:16],
+        # Keyed on the blinded text, so a recompile that only changes the
+        # author line does not invalidate cached judgments.
+        "sha": hashlib.sha256(f"Title: {title}\n\n{body}".encode()).hexdigest()[:16],
     }
 
 

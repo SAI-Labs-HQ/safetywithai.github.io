@@ -291,8 +291,8 @@ def build_idea(data: dict, slug: str, n: int) -> str:
 <label>Right <select id="selB">{options}</select></label>
 </div>
 <div class="pdfs">
-<div class="pane"><div class="pane-head"><span id="titleA"></span><a id="dlA" href="#" download>download</a></div><iframe id="pdfA" title="Left paper"></iframe></div>
-<div class="pane"><div class="pane-head"><span id="titleB"></span><a id="dlB" href="#" download>download</a></div><iframe id="pdfB" title="Right paper"></iframe></div>
+<div class="pane"><div class="pane-head"><span id="titleA"></span><a id="dlA" href="#" target="_blank" rel="noopener">open PDF</a></div><div class="pdfbox" id="pdfA"></div></div>
+<div class="pane"><div class="pane-head"><span id="titleB"></span><a id="dlB" href="#" target="_blank" rel="noopener">open PDF</a></div><div class="pdfbox" id="pdfB"></div></div>
 </div>
 <h2 class="sub">What the judges said about this pair</h2>
 <div id="tally" class="tally"></div>
@@ -300,6 +300,7 @@ def build_idea(data: dict, slug: str, n: int) -> str:
 </section>
 
 <script id="data" type="application/json">{json.dumps(payload).replace("</", "<\\/")}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script src="../assets/idea.js"></script>
 """
     return page(idea["title"], body, depth=1)
@@ -311,11 +312,42 @@ const byLabel = Object.fromEntries(D.papers.map(p => [p.label, p]));
 const selA = document.getElementById('selA'), selB = document.getElementById('selB');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+const pdfjs = window.pdfjsLib;
+if (pdfjs) pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const renders = {};
+
+async function showPdf(box, url) {
+  const token = (renders[box.id] = Symbol());
+  box.innerHTML = '';
+  if (!pdfjs) {  // fallback: the browser's own viewer
+    const f = document.createElement('iframe'); f.src = url + '#view=FitH'; f.title = 'paper'; box.appendChild(f); return;
+  }
+  let doc;
+  try { doc = await pdfjs.getDocument(url).promise; }
+  catch (e) { box.innerHTML = `<p class="muted pad">Could not render this PDF here. <a href="${url}" target="_blank" rel="noopener">Open it in a new tab.</a></p>`; return; }
+  if (renders[box.id] !== token) return;
+  const width = box.clientWidth - 2;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  for (let n = 1; n <= doc.numPages; n++) {
+    if (renders[box.id] !== token) return;
+    const page = await doc.getPage(n);
+    const base = page.getViewport({ scale: 1 });
+    const scale = width / base.width;
+    const vp = page.getViewport({ scale: scale * dpr });
+    const c = document.createElement('canvas');
+    c.width = vp.width; c.height = vp.height;
+    c.style.width = width + 'px'; c.style.height = (vp.height / dpr) + 'px';
+    box.appendChild(c);
+    await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+  }
+}
+
 function setPane(side, label) {
   const p = byLabel[label];
-  document.getElementById('pdf' + side).src = '../' + p.pdf + '#view=FitH';
+  const url = '../' + p.pdf;
   document.getElementById('title' + side).textContent = p.name + ' — ' + p.title;
-  document.getElementById('dl' + side).href = '../' + p.pdf;
+  document.getElementById('dl' + side).href = url;
+  showPdf(document.getElementById('pdf' + side), url);
 }
 
 function render() {
@@ -345,6 +377,7 @@ function render() {
 }
 
 selA.addEventListener('change', render); selB.addEventListener('change', render);
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { setPane('A', selA.value); setPane('B', selB.value); }, 300); });
 selA.selectedIndex = 0; selB.selectedIndex = Math.min(1, D.papers.length - 1);
 render();
 """
@@ -464,8 +497,15 @@ details.bg p{font-size:16px;line-height:1.65;color:var(--ink2);margin:12px 0}
 .pick{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 14px}
 .pick label{font-size:14px;color:var(--muted);font-weight:500;display:flex;flex-direction:column;gap:6px;flex:1;min-width:220px}
 .pick select{font:inherit;font-size:15px;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink)}
+.viewer{width:calc(100vw - 32px);max-width:1800px;margin-left:calc(50% - 50vw + 16px);margin-right:calc(50% - 50vw + 16px)}
+@media (min-width:1832px){.viewer{margin-left:calc(50% - 900px);margin-right:calc(50% - 900px)}}
+.viewer .pick,.viewer h2,.viewer .tally,.viewer .verdicts{max-width:896px}
 .pdfs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .pane{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.pdfbox{height:88vh;overflow-y:auto;background:#e9e9e6;padding:1px 0}
+.pdfbox canvas{display:block;margin:0 auto 8px;box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.pdfbox iframe{display:block;width:100%;height:100%;border:0}
+.pdfbox .pad{padding:20px}
 .pane-head{display:flex;justify-content:space-between;gap:12px;padding:10px 14px;font-size:13.5px;color:var(--ink2);border-bottom:1px solid var(--line-soft)}
 .pane-head span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pane-head a{white-space:nowrap;font-weight:500}
@@ -488,7 +528,8 @@ table.scores td{text-align:center;padding:3px 6px;color:var(--ink)}
   h1{font-size:31px}
   .fig{padding:22px 18px;border-radius:12px}
   .pdfs{grid-template-columns:1fr}
-  .pane iframe{height:70vh}
+  .viewer{width:auto;margin-left:0;margin-right:0}
+  .pdfbox{height:70vh}
   .stats{gap:28px}
   .stat .n{font-size:36px}
   table.board{font-size:14.5px}

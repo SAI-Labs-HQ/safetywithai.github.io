@@ -3,11 +3,42 @@ const byLabel = Object.fromEntries(D.papers.map(p => [p.label, p]));
 const selA = document.getElementById('selA'), selB = document.getElementById('selB');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
+const pdfjs = window.pdfjsLib;
+if (pdfjs) pdfjs.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+const renders = {};
+
+async function showPdf(box, url) {
+  const token = (renders[box.id] = Symbol());
+  box.innerHTML = '';
+  if (!pdfjs) {  // fallback: the browser's own viewer
+    const f = document.createElement('iframe'); f.src = url + '#view=FitH'; f.title = 'paper'; box.appendChild(f); return;
+  }
+  let doc;
+  try { doc = await pdfjs.getDocument(url).promise; }
+  catch (e) { box.innerHTML = `<p class="muted pad">Could not render this PDF here. <a href="${url}" target="_blank" rel="noopener">Open it in a new tab.</a></p>`; return; }
+  if (renders[box.id] !== token) return;
+  const width = box.clientWidth - 2;
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  for (let n = 1; n <= doc.numPages; n++) {
+    if (renders[box.id] !== token) return;
+    const page = await doc.getPage(n);
+    const base = page.getViewport({ scale: 1 });
+    const scale = width / base.width;
+    const vp = page.getViewport({ scale: scale * dpr });
+    const c = document.createElement('canvas');
+    c.width = vp.width; c.height = vp.height;
+    c.style.width = width + 'px'; c.style.height = (vp.height / dpr) + 'px';
+    box.appendChild(c);
+    await page.render({ canvasContext: c.getContext('2d'), viewport: vp }).promise;
+  }
+}
+
 function setPane(side, label) {
   const p = byLabel[label];
-  document.getElementById('pdf' + side).src = '../' + p.pdf + '#view=FitH';
+  const url = '../' + p.pdf;
   document.getElementById('title' + side).textContent = p.name + ' — ' + p.title;
-  document.getElementById('dl' + side).href = '../' + p.pdf;
+  document.getElementById('dl' + side).href = url;
+  showPdf(document.getElementById('pdf' + side), url);
 }
 
 function render() {
@@ -37,5 +68,6 @@ function render() {
 }
 
 selA.addEventListener('change', render); selB.addEventListener('change', render);
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { setPane('A', selA.value); setPane('B', selB.value); }, 300); });
 selA.selectedIndex = 0; selB.selectedIndex = Math.min(1, D.papers.length - 1);
 render();
